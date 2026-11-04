@@ -49,8 +49,10 @@ public class CameraController : MonoBehaviour
         );
 
         currentMouseDelta = Vector2.SmoothDamp(
-            currentMouseDelta, targetMouseDelta,
-            ref currentMouseDeltaVelocity, 0f / smoothing
+            currentMouseDelta,
+            targetMouseDelta,
+            ref currentMouseDeltaVelocity,
+            1f / smoothing
         );
 
         xRotation -= currentMouseDelta.y * mouseSensitivity;
