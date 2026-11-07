@@ -46,6 +46,8 @@ public class enemy_ai : MonoBehaviour
         if (in_sight && in_attack){ 
             attacking(); 
         }
+
+        
     }
 
     private void searching()
