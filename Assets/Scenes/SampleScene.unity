@@ -150,7 +150,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 233198556}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.6610754
+  m_Radius: 3
   m_Speed: 1
   m_Acceleration: 3
   avoidancePriority: 50
@@ -160,7 +160,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 7.352404
-  m_BaseOffset: 3.676202
+  m_BaseOffset: 0
   m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &233198559
@@ -188,7 +188,7 @@ MonoBehaviour:
   walk_point: {x: 0, y: 0, z: 0}
   walk_point_range: 3
   time_between_attacks: 0.5
-  sight_range: 20
+  sight_range: 5
   attack_range: 3
   in_sight: 0
   in_attack: 0
@@ -217,7 +217,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!136 &233198562
 CapsuleCollider:
@@ -308,8 +308,8 @@ Transform:
   m_GameObject: {fileID: 233198556}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.97, y: 2.58, z: -14.22}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.99, y: 0.586, z: -11.82}
+  m_LocalScale: {x: 1, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -649,8 +649,8 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 5c70b060b5816d04bb58f4b73146519f, type: 2}
-  m_BuildHeightMesh: 0
+  m_NavMeshData: {fileID: 23800000, guid: e9f3b5487dbf2ad4b97fc47a6b1141b6, type: 2}
+  m_BuildHeightMesh: 1
 --- !u!4 &637652966
 Transform:
   m_ObjectHideFlags: 0
@@ -791,7 +791,7 @@ Transform:
   m_GameObject: {fileID: 1379973990}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2, y: 0.585, z: -2.964}
+  m_LocalPosition: {x: -1.338, y: 0.585, z: -11.77}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -839,7 +839,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NewPlayerController
   walkSpeed: 6
   gravity: -9.8
-  mouseSensitivity: 4
+  mouseSensitivity: 6
 --- !u!143 &1379973998
 CharacterController:
   m_ObjectHideFlags: 0
