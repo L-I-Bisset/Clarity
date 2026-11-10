@@ -1,6 +1,5 @@
-// Script/movment.cs
 using UnityEngine;
-using System.Collections;
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
