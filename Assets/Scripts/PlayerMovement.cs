@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
@@ -6,19 +7,20 @@ public class PlayerMovement : MonoBehaviour
     // Movement settings
     [SerializeField] public float walkSpeed = 6f;
     [SerializeField] public float gravity = -9.8f;
-    [SerializeField] public float mouseSensitivity = 2f;
+    [SerializeField] public float mouseSensitivity = 2.5f;
 
-    // Private variables
     private float currentSpeed;
     private Vector3 velocity;
     private CharacterController controller;
     private Camera playerCamera;
     private float rotationX = 0f;
+    private Rigidbody rb;
 
     private void Start()
     {
         controller = GetComponent<CharacterController>();
         playerCamera = Camera.main;
+        rb = GetComponent<Rigidbody>();
 
         if (playerCamera == null)
         {
@@ -31,14 +33,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (playerCamera == null) return; // Exit if no camera is assigned
-
-        HandleMovement();
-        HandleCameraRotation();
-        ApplyGravity();
+        cameraRotation();
     }
 
-    private void HandleMovement()
+    private void FixedUpdate()
+    {
+        //Fixed updates for physics
+        movement();
+        applyGravity();
+
+    }
+
+    private void movement()
     {
         float moveDirectionY = velocity.y;
         float moveDirectionX = Input.GetAxis("Horizontal");
@@ -46,7 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
         currentSpeed = walkSpeed; // Set the current speed to walk speed
 
-        Vector3 move = transform.right * moveDirectionX + transform.forward * moveDirectionZ;
+        Vector3 move = new Vector3(moveDirectionX, 0, moveDirectionZ);
+        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
 
         // Apply movement and velocity
         velocity = move * currentSpeed;
@@ -55,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private void ApplyGravity()
+    private void applyGravity()
     {
         if (!controller.isGrounded)
         {
@@ -63,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void HandleCameraRotation()
+    private void cameraRotation()
     {
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
