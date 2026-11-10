@@ -1,5 +1,8 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.InputSystem.XR;
+using static UnityEngine.GraphicsBuffer;
 
 
 public class enemy_ai : MonoBehaviour
@@ -9,6 +12,13 @@ public class enemy_ai : MonoBehaviour
     public Transform player;
 
     public LayerMask what_is_ground, What_is_player;
+
+    public float gravity = -9.8f;
+
+    public Rigidbody rigid;
+
+
+        
 
     //searching
     public Vector3 walk_point;
@@ -28,6 +38,8 @@ public class enemy_ai : MonoBehaviour
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
+        rigid = GetComponent<Rigidbody>();
+
     }
 
     private void Update()
@@ -46,7 +58,6 @@ public class enemy_ai : MonoBehaviour
         if (in_sight && in_attack){ 
             attacking(); 
         }
-
         
     }
 
@@ -75,8 +86,9 @@ public class enemy_ai : MonoBehaviour
         float rando_x = Random.Range(-walk_point_range, walk_point_range);
 
         walk_point = new Vector3(transform.position.x + rando_x, transform.position.y, transform.position.z + rando_z);
-         
-        if(Physics.Raycast(walk_point, -transform.up, 2f, what_is_ground))
+       
+
+        if (Physics.Raycast(walk_point, -transform.up, 2f, what_is_ground))
         {
             walk_point_set = true;
         }
@@ -92,7 +104,11 @@ public class enemy_ai : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        transform.LookAt(player);
+        Vector3 rotation = Quaternion.LookRotation(player.position).eulerAngles;
+        rotation.y = 0f;
+
+        transform.rotation = Quaternion.Euler(rotation);
+
 
         if (!already_attacked)
         {
