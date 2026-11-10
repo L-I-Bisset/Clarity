@@ -2,7 +2,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem.XR;
-using static UnityEngine.GraphicsBuffer;
 
 
 public class enemy_ai : MonoBehaviour
@@ -104,11 +103,9 @@ public class enemy_ai : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        Vector3 rotation = Quaternion.LookRotation(player.position).eulerAngles;
-        rotation.y = 0f;
+        transform.LookAt(player);
 
-        transform.rotation = Quaternion.Euler(rotation);
-
+       
 
         if (!already_attacked)
         {
