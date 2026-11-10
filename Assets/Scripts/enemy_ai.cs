@@ -1,3 +1,4 @@
+using Unity.Android.Gradle.Manifest;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,10 @@ public class enemy_ai : MonoBehaviour
     public float gravity = -9.8f;
 
     public Rigidbody rigid;
+
+    public float health = 10f;
+
+    public float damage = 1f;
 
 
         
@@ -105,6 +110,7 @@ public class enemy_ai : MonoBehaviour
 
         transform.LookAt(player);
 
+       // player.GetComponent<takes_damage(damage)>();   
        
 
         if (!already_attacked)
@@ -118,5 +124,12 @@ public class enemy_ai : MonoBehaviour
     {
         already_attacked = false;
 
+    }
+
+    void takes_damage(float damage)
+    {
+        health -= damage;
+
+        if (health <= 0) { Destroy(this, 0f); }
     }
 }

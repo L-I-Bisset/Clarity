@@ -1,34 +1,154 @@
 // Script/movment.cs
 using UnityEngine;
-
+using System.Collections;
 public class PlayerController : MonoBehaviour
 {
-    public float moveForce = 10f;
-    private Rigidbody rb;
+    [Header("Movement Settings")]
+    public float moveSpeed;
 
-    void Start()
+    public float groundDrag;
+
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool readyToJump;
+
+    [Header("Ground Check Settings")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    [Header("Slope Handling Settings")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
+    bool exitingSlope;
+
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
+
+    private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        if (rb == null)
+        rb.freezeRotation = true;
+        readyToJump = true;
+    }
+
+    private void Update()
+    {
+        //Ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        MyInput();
+        speedControl();
+
+        //Handle drag
+        if (grounded)
+            rb.linearDamping = groundDrag;
+        else
+            rb.linearDamping = 0;
+    
+    }
+
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    //Handles player input
+    private void MyInput()
+    {
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
+
+        if (Input.GetButtonDown("Jump") && readyToJump && grounded)
         {
-            Debug.LogError("No Rigidbody attached to " + gameObject.name + ". PlayerMovement requires a Rigidbody component.");
+            readyToJump = false;
+
+            Jump();
+
+            Invoke(nameof(ResetJump), jumpCooldown);
         }
     }
 
-    void FixedUpdate()
+    //Handles player movement
+    private void MovePlayer()
     {
-        Vector3 force = Vector3.zero;
+        //Make player move in the direction theyre facing
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
 
-        if (Input.GetKey(KeyCode.W))
-            force += transform.forward;
-        if (Input.GetKey(KeyCode.S))
-            force -= transform.forward;
-        if (Input.GetKey(KeyCode.A))
-            force -= transform.right;
-        if (Input.GetKey(KeyCode.D))
-            force += transform.right;
+        //Slope movement
+        if (OnSlope() && !exitingSlope)
+        {
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
 
-        if (force != Vector3.zero && rb != null)
-            rb.AddForce(force.normalized * moveForce);
+            if (rb.linearVelocity.y > 0)
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        }
+        //Ground movement
+        if (grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        //Air movement
+        else if (!grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        //Turn gravity off while on slope
+        rb.useGravity = !OnSlope();
+    }
+
+    //Controls the speed of the player
+    private void speedControl()
+    {
+        //Makes movemnt on slop same as ground movement
+        if (OnSlope())
+        {
+            if(rb.linearVelocity.magnitude > moveSpeed)
+                rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;   
+        }
+        //Ground movement
+        else{
+            Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+            // limit velocity if needed
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+            }
+        }
+    }
+
+    //Makes player jump
+    private void Jump()
+    {
+        //allows for jumping while on slope
+        exitingSlope = true;
+        // reset y velocity
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+    }
+
+    //Resets the jump cooldown
+    private void ResetJump()
+    {
+        readyToJump = true;
+    }
+
+    //Checks to see if player is on a slope
+    private bool OnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 }
