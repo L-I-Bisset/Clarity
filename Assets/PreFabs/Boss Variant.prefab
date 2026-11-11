@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: InitialModule.maxNumParticles
       value: 2000
       objectReference: {fileID: 0}
+    - target: {fileID: 5658946546435994104, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: m_Name
       value: Boss Variant
