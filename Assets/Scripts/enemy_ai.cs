@@ -17,10 +17,10 @@ public class enemy_ai : MonoBehaviour
 
     public Rigidbody rigid;
 
-    
+    public float damage = 1f;
 
 
-        
+
 
     //searching
     public Vector3 walk_point;
@@ -108,8 +108,11 @@ public class enemy_ai : MonoBehaviour
 
         transform.LookAt(player);
 
-       // player.GetComponent<takes_damage(damage)>();   
-       
+        Player_damage playerDamage = gameObject.GetComponent<Player_damage>();
+        if (playerDamage != null)
+        {
+            playerDamage.takes_damage(damage);
+        }
 
         if (!already_attacked)
         {

@@ -18,11 +18,13 @@ public class enemy_Damage : MonoBehaviour
         
     }
 
-    void takes_damage(float damage)
+    public void takes_damage(float damage)
     {
         health -= damage;
 
         if (health <= 0) { Destroy(this, 0f); }
     }
+
+   
 
 }
