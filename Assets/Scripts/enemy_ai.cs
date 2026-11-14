@@ -17,9 +17,7 @@ public class enemy_ai : MonoBehaviour
 
     public Rigidbody rigid;
 
-    public float health = 10f;
-
-    public float damage = 1f;
+    
 
 
         
@@ -126,10 +124,5 @@ public class enemy_ai : MonoBehaviour
 
     }
 
-    void takes_damage(float damage)
-    {
-        health -= damage;
-
-        if (health <= 0) { Destroy(this, 0f); }
-    }
+    
 }

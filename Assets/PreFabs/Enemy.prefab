@@ -5016,7 +5016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy_ai
   agent: {fileID: 1986525325722472121}
-  player: {fileID: 7111867053892241887, guid: a92c5c44b3d1ebf40b030aefdb859f3b, type: 3}
+  player: {fileID: 1140942353885210963, guid: 1cbc1eb10bd4246d49154cf10a53fe70, type: 3}
   what_is_ground:
     serializedVersion: 2
     m_Bits: 128
@@ -5025,8 +5025,6 @@ MonoBehaviour:
     m_Bits: 64
   gravity: -9.8
   rigid: {fileID: 2379360702990053710}
-  health: 10
-  damage: 1
   walk_point: {x: 0, y: 0, z: 0}
   walk_point_range: 3
   time_between_attacks: 0.5
