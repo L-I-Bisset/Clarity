@@ -37,7 +37,7 @@ public class enemy_ai : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
         rigid = GetComponent<Rigidbody>();
@@ -113,9 +113,11 @@ public class enemy_ai : MonoBehaviour
 
         if (playerDamage != null)
         {
-            playerDamage.takes_damage(damage);
+            if (!already_attacked)
+            {
+                playerDamage.takes_damage(damage);
+            }
         }
-
 
         if (!already_attacked)
         {

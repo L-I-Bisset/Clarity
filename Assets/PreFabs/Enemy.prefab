@@ -4851,6 +4851,7 @@ GameObject:
   - component: {fileID: 419220975540524582}
   - component: {fileID: 1986525325722472121}
   - component: {fileID: 3901583541650823179}
+  - component: {fileID: -6132412763688259150}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -5033,3 +5034,17 @@ MonoBehaviour:
   attack_range: 3
   in_sight: 0
   in_attack: 0
+--- !u!114 &-6132412763688259150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101995568573279915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0eac122a5d119408e6e293af5b4710, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enemy_Damage
+  health: 10
+  damage: 1

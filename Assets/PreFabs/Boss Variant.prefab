@@ -8,6 +8,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6132412763688259150, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6132412763688259150, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: health
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986525325722472121, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: sight_range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: attack_range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: walk_point_range
+      value: 2.95
+      objectReference: {fileID: 0}
     - target: {fileID: 5392247651422220482, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: InitialModule.maxNumParticles
       value: 2000
@@ -106,5 +134,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Spawning
   spawned: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
-  spawn_radius: 10
-  spawn_timer: 2
+  spawn_radius: 100
+  spawn_timer: 3

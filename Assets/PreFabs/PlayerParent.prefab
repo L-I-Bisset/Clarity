@@ -197,6 +197,7 @@ GameObject:
   - component: {fileID: 6139784526717321915}
   - component: {fileID: 4067898135259586237}
   - component: {fileID: 6120981285459636467}
+  - component: {fileID: 6623310792058712825}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -273,6 +274,20 @@ MonoBehaviour:
     m_Bits: 1024
   maxSlopeAngle: 0
   orientation: {fileID: 9084573228409479457}
+--- !u!114 &6623310792058712825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6333715308260222737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac61deea3e66c7d4cb5f81f2a544d84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_damage
+  max_health: 100
+  health: 0
 --- !u!1 &7228328880248241680
 GameObject:
   m_ObjectHideFlags: 0
