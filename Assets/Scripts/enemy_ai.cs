@@ -102,17 +102,20 @@ public class enemy_ai : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
+
     private void attacking()
     {
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
 
-        Player_damage playerDamage = gameObject.GetComponent<Player_damage>();
+        Player_damage playerDamage = player.GetComponent<Player_damage>();
+
         if (playerDamage != null)
         {
             playerDamage.takes_damage(damage);
         }
+
 
         if (!already_attacked)
         {

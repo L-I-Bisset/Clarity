@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 8396736506149310336, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: m_LocalScale.x
       value: 2

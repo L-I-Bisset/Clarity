@@ -164,7 +164,7 @@ GameObject:
   - component: {fileID: 1140942353885210963}
   m_Layer: 0
   m_Name: PlayerParent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -985,7 +985,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 500
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 1
     rotation3D: 0
@@ -1114,7 +1114,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     m_Mesh: {fileID: -5523277661179574252, guid: cca2057f57be5884384441ec4256e17a, type: 3}
-    m_MeshRenderer: {fileID: 0}
+    m_MeshRenderer: {fileID: 8481917131501360390}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 21300000, guid: 355ca9ce4911bc94b8ddb72deac855d7, type: 3}
     m_SpriteRenderer: {fileID: 0}

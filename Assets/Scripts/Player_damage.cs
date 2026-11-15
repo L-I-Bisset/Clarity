@@ -3,7 +3,7 @@ using UnityEngine;
 public class Player_damage : MonoBehaviour
 {
     public float  max_health = 100f;
-    private float health = 0f;
+    public float health = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
