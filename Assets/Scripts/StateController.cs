@@ -2,170 +2,177 @@ using UnityEngine;
 
 public class StateController : MonoBehaviour
 {
-    
+    [Header("Movement Settings")]
+    public float moveSpeed;
 
-    //Enum to hold the different states of the player
+    public float groundDrag;
+
+    public float jumpForce;
+    public float jumpCooldown;
+    public float airMultiplier;
+    bool readyToJump;
+
+    [Header("Ground Check Settings")]
+    public float playerHeight;
+    public LayerMask whatIsGround;
+    bool grounded;
+
+    [Header("Slope Handling Settings")]
+    public float maxSlopeAngle;
+    private RaycastHit slopeHit;
+    bool exitingSlope;
+
+    public Transform orientation;
+    float horizontalInput;
+    float verticalInput;
+    Vector3 moveDirection;
+    Rigidbody rb;
+    public State MovementState;
     public enum State
     {
-        Idle,
-        Dashing,
-        Running,
-        Jumping,
-        Attacking,
-        Sliding
+        idle,
+        sprinting,
+        jumping,
     }
-    [SerializeField] public float walkSpeed = 6f;
-    [SerializeField] public float gravity = -9.8f;
-    [SerializeField] public float mouseSensitivity = 2.5f;
-    public State currentState;
-    private Rigidbody rb;
-    private Animator animator;
-    private bool isGrounded;
-    private float currentSpeed;
-    private Vector3 velocity;
-    private CharacterController controller;
-    private Camera playerCamera;
-    private float rotationX = 0f;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     private void Start()
     {
-        currentState = State.Idle;
-        controller = GetComponent<CharacterController>();
-        playerCamera = Camera.main;
+        MovementState = State.idle;
         rb = GetComponent<Rigidbody>();
-
-        if (playerCamera == null)
-        {
-            Debug.LogError("Main camera not found. Please assign a camera tagged as 'MainCamera'.");
-        }
-
-        Cursor.lockState = CursorLockMode.Locked;  // Lock the cursor for first-person view
-        Cursor.visible = false;  // Hide the cursor
+        rb.freezeRotation = true;
+        readyToJump = true;
     }
 
-    // Update is called once per frame
     private void Update()
     {
-        cameraRotation();
+        //Ground check
+        grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
+        speedControl();
+
+        //Handle drag
+        if (grounded)
+            rb.linearDamping = groundDrag;
+        else
+            rb.linearDamping = 0;
+    
     }
 
     private void FixedUpdate()
     {
-        //applyGravity();
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 2f);
-
-        switch (currentState)
+        switch (MovementState)
         {
-            case State.Idle:
-                updateIdle();
+            case State.idle:
+                 idle();
+                 break;
+            case State.sprinting:
+                movePlayer();
                 break;
-            case State.Running:
-                updateRunning();
-                break;
-            case State.Dashing:
-                updateDashing();
-                break;
-            case State.Jumping:
-                updateJumping();
-                break;
-            case State.Attacking:
-                updateAttacking();
-                break;
-            case State.Sliding:
-                updateSliding();
-                break;
+            case State.jumping:
+                 readyToJump = false;
+                 jump();
+                 Invoke(nameof(ResetJump), jumpCooldown);
+                 break;
         }
+        
     }
-
-    private void updateIdle()
-    {
-        float move = Input.GetAxis("Horizontal");
-
-        if (move != 0)
-        {
-            currentState = State.Running;
-        }
-        else if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            currentState = State.Jumping;
-        }
-        else if (Input.GetButtonDown("Dash") && isGrounded)
-        {
-            currentState = State.Dashing;
-        }
-        else if (Input.GetButtonDown("Fire1") && isGrounded)
-        {
-            currentState = State.Attacking;
-        }
-        else if (Input.GetButtonDown("Slide") && isGrounded)
-        {
-            currentState = State.Sliding;
-        }
-    }
-    private void updateRunning()
+    
+    //sets movement state
+    public void idle()
     {
         
-        //float moveDirectionY = velocity.y;
-        float moveDirectionX = Input.GetAxis("Horizontal");
-        float moveDirectionZ = Input.GetAxis("Vertical");
+        //sets movement state based on input
+        horizontalInput = Input.GetAxisRaw("Horizontal");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-        currentSpeed = walkSpeed; // Set the current speed to walk speed
-
-        Vector3 move = new Vector3(moveDirectionX, 0, moveDirectionZ);
-        rb.MovePosition(rb.position + move * currentSpeed * Time.fixedDeltaTime);
-
-        // Apply movement and velocity
-        velocity = move * currentSpeed;
-
-        //velocity.y = moveDirectionY;  // Apply gravity
-        controller.Move(velocity * Time.deltaTime);
-        currentState = State.Idle; // Reset to Idle state after processing movement
-    }
-
-    private void updateDashing()
-    {
-        currentState = State.Idle;
-    }
-
-    private void updateJumping()
-    {
-        if (isGrounded)
+        if (horizontalInput != 0 || verticalInput != 0)
         {
-
+            MovementState = State.sprinting;
         }
-        currentState = State.Idle;
-    }
-
-    private void updateAttacking()
-    {
-        currentState = State.Idle;
-    }
-
-    private void updateSliding()
-    {
-        if (isGrounded)
+        if (Input.GetButtonDown("Jump") && readyToJump && grounded)
         {
-            
+            MovementState = State.jumping;
         }
-        currentState = State.Idle;
+        
     }
-
-    private void applyGravity()
+    //Handles player movement
+    private void movePlayer()
     {
-        if (!controller.isGrounded)
+        //Make player move in the direction theyre facing
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
+        //Slope movement
+        if (onSlope() && !exitingSlope)
         {
-            velocity.y += gravity * Time.deltaTime;
+            rb.AddForce(GetSlopeMoveDirection() * moveSpeed * 20f, ForceMode.Force);
+
+            if (rb.linearVelocity.y > 0)
+                rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+        }
+        //Ground movement
+        if (grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        //Air movement
+        else if (!grounded)
+            rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+        //Turn gravity off while on slope
+        rb.useGravity = !onSlope();
+        MovementState = State.idle;
+    }
+
+    //Controls the speed of the player
+    private void speedControl()
+    {
+        //Makes movemnt on slop same as ground movement
+        if (onSlope())
+        {
+            if(rb.linearVelocity.magnitude > moveSpeed)
+                rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;   
+        }
+        //Ground movement
+        else{
+            Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+            // limit velocity if needed
+            if (flatVel.magnitude > moveSpeed)
+            {
+                Vector3 limitedVel = flatVel.normalized * moveSpeed;
+                rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
+            }
         }
     }
-    private void cameraRotation()
+
+    //Makes player jump
+    private void jump()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
+        //allows for jumping while on slope
+        exitingSlope = true;
+        // reset y velocity
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
-        rotationX -= mouseY;
-        rotationX = Mathf.Clamp(rotationX, -90f, 90f); // Vertical camera rotation limits
+        rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+        MovementState = State.idle;
+    }
 
-        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0); // Apply vertical rotation
-        transform.Rotate(Vector3.up * mouseX); // Apply horizontal rotation
+    //Resets the jump cooldown
+    private void ResetJump()
+    {
+        readyToJump = true;
+    }
+
+    //Checks to see if player is on a slope
+    private bool onSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + 0.3f))
+        {
+            float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+            return angle < maxSlopeAngle && angle != 0;
+        }
+        return false;
+    }
+
+    private Vector3 GetSlopeMoveDirection()
+    {
+        return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 }
