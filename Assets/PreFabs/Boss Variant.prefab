@@ -8,6 +8,34 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -6132412763688259150, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: damage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6132412763688259150, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: health
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1986525325722472121, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: sight_range
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: attack_range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: walk_point_range
+      value: 2.95
+      objectReference: {fileID: 0}
     - target: {fileID: 5392247651422220482, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: InitialModule.maxNumParticles
       value: 2000
@@ -19,6 +47,10 @@ PrefabInstance:
     - target: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: m_Name
       value: Boss Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 8396736506149310336, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: m_LocalScale.x
@@ -79,5 +111,28 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8355752084843993457}
   m_SourcePrefab: {fileID: 100100000, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+--- !u!1 &641852224448772306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+  m_PrefabInstance: {fileID: 8689769395520099961}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8355752084843993457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641852224448772306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69821d9aaa94d96439f38dfce94ba8b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Spawning
+  spawned: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+  spawn_radius: 100
+  spawn_timer: 3

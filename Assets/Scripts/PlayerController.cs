@@ -28,6 +28,17 @@ public class PlayerController : MonoBehaviour
     Vector3 moveDirection;
     Rigidbody rb;
 
+    [Header("Grenade Settings")]
+    public GameObject grenadePrefab;
+    public float ThrowForce = 10f;
+    public float UpwardsThrowForce = 10f;
+    public float Cooldown = 2f;
+    public KeyCode throwKey = KeyCode.Mouse1;
+    public Transform cam;
+    public Transform throwPoint;
+    bool readyToThrow = true;
+
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -43,11 +54,41 @@ public class PlayerController : MonoBehaviour
         speedControl();
 
         //Handle drag
-        if (grounded)
+        if (grounded) {
             rb.linearDamping = groundDrag;
-        else
-            rb.linearDamping = 0;
-    
+        }
+        else { 
+                rb.linearDamping = 0; 
+        }
+
+        if(Input.GetKeyDown(throwKey) && readyToThrow)
+        {
+            ThrowGrenade();
+        }
+    }
+
+    private void ThrowGrenade()
+    {
+        readyToThrow = false;
+        //Instantiate grenade
+        GameObject grenade = Instantiate(grenadePrefab, throwPoint.position, throwPoint.rotation);
+        Rigidbody grenadeRb = grenade.GetComponent<Rigidbody>();
+        grenadeRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        grenadeRb.interpolation = RigidbodyInterpolation.Interpolate;
+
+        //Calculate direction to throw
+
+        Vector3 forceDirection = cam.transform.forward * ThrowForce + transform.up * UpwardsThrowForce;
+      
+        grenadeRb.AddForce(forceDirection, ForceMode.Impulse);
+
+        //Cooldown
+        Invoke(nameof(ResetThrow), Cooldown);
+    }
+
+    private void ResetThrow()
+    {
+        readyToThrow = true;
     }
 
     private void FixedUpdate()

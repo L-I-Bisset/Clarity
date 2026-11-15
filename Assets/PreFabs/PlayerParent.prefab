@@ -153,6 +153,37 @@ MonoBehaviour:
   mouseSensitivityX: 400
   mouseSensitivityY: 400
   orientation: {fileID: 9084573228409479457}
+--- !u!1 &3929125459276638222
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3356249311760233799}
+  m_Layer: 0
+  m_Name: throwPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3356249311760233799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3929125459276638222}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.296, y: 0.478, z: 0.697}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6139784526717321915}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3969924762357038077
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,7 +195,7 @@ GameObject:
   - component: {fileID: 1140942353885210963}
   m_Layer: 0
   m_Name: PlayerParent
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,6 +228,7 @@ GameObject:
   - component: {fileID: 6139784526717321915}
   - component: {fileID: 4067898135259586237}
   - component: {fileID: 6120981285459636467}
+  - component: {fileID: 6623310792058712825}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -221,6 +253,7 @@ Transform:
   - {fileID: 357036136167889967}
   - {fileID: 427246218263262237}
   - {fileID: 306408742019648604}
+  - {fileID: 3356249311760233799}
   m_Father: {fileID: 1140942353885210963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &4067898135259586237
@@ -273,6 +306,27 @@ MonoBehaviour:
     m_Bits: 1024
   maxSlopeAngle: 0
   orientation: {fileID: 9084573228409479457}
+  grenadePrefab: {fileID: 7581824544897443760, guid: cbc60d2d8fc6f064db39f7ad6144c772, type: 3}
+  ThrowForce: 8
+  UpwardsThrowForce: 8
+  Cooldown: 4
+  throwKey: 324
+  cam: {fileID: 5251445062263161056}
+  throwPoint: {fileID: 3356249311760233799}
+--- !u!114 &6623310792058712825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6333715308260222737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac61deea3e66c7d4cb5f81f2a544d84a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player_damage
+  max_health: 100
+  health: 0
 --- !u!1 &7228328880248241680
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,7 +1039,7 @@ ParticleSystem:
         m_RotationOrder: 4
     randomizeRotationDirection: 0
     gravitySource: 0
-    maxNumParticles: 500
+    maxNumParticles: 50
     customEmitterVelocity: {x: 0, y: 0, z: 0}
     size3D: 1
     rotation3D: 0
@@ -1114,7 +1168,7 @@ ParticleSystem:
           m_PostInfinity: 2
           m_RotationOrder: 4
     m_Mesh: {fileID: -5523277661179574252, guid: cca2057f57be5884384441ec4256e17a, type: 3}
-    m_MeshRenderer: {fileID: 0}
+    m_MeshRenderer: {fileID: 8481917131501360390}
     m_SkinnedMeshRenderer: {fileID: 0}
     m_Sprite: {fileID: 21300000, guid: 355ca9ce4911bc94b8ddb72deac855d7, type: 3}
     m_SpriteRenderer: {fileID: 0}

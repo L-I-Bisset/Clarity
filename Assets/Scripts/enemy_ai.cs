@@ -17,12 +17,10 @@ public class enemy_ai : MonoBehaviour
 
     public Rigidbody rigid;
 
-    public float health = 10f;
-
     public float damage = 1f;
 
 
-        
+
 
     //searching
     public Vector3 walk_point;
@@ -39,7 +37,7 @@ public class enemy_ai : MonoBehaviour
 
     private void Awake()
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
 
         rigid = GetComponent<Rigidbody>();
@@ -104,14 +102,22 @@ public class enemy_ai : MonoBehaviour
         agent.SetDestination(player.position);
     }
 
+
     private void attacking()
     {
         agent.SetDestination(transform.position);
 
         transform.LookAt(player);
 
-       // player.GetComponent<takes_damage(damage)>();   
-       
+        Player_health playerHealth = player.GetComponent<Player_health>();
+
+        if (playerHealth != null)
+        {
+            if (!already_attacked)
+            {
+                playerHealth.takes_damage(damage);
+            }
+        }   
 
         if (!already_attacked)
         {
@@ -126,10 +132,5 @@ public class enemy_ai : MonoBehaviour
 
     }
 
-    void takes_damage(float damage)
-    {
-        health -= damage;
-
-        if (health <= 0) { Destroy(this, 0f); }
-    }
+    
 }
