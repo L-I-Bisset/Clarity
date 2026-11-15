@@ -109,15 +109,15 @@ public class enemy_ai : MonoBehaviour
 
         transform.LookAt(player);
 
-        Player_damage playerDamage = player.GetComponent<Player_damage>();
+        Player_health playerHealth = player.GetComponent<Player_health>();
 
-        if (playerDamage != null)
+        if (playerHealth != null)
         {
             if (!already_attacked)
             {
-                playerDamage.takes_damage(damage);
+                playerHealth.takes_damage(damage);
             }
-        }
+        }   
 
         if (!already_attacked)
         {

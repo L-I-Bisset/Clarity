@@ -307,9 +307,9 @@ MonoBehaviour:
   maxSlopeAngle: 0
   orientation: {fileID: 9084573228409479457}
   grenadePrefab: {fileID: 7581824544897443760, guid: cbc60d2d8fc6f064db39f7ad6144c772, type: 3}
-  ThrowForce: 10
-  UpwardsThrowForce: 10
-  Cooldown: 2
+  ThrowForce: 8
+  UpwardsThrowForce: 8
+  Cooldown: 4
   throwKey: 324
   cam: {fileID: 5251445062263161056}
   throwPoint: {fileID: 3356249311760233799}

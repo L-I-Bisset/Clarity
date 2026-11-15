@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player_damage : MonoBehaviour
+public class Player_health : MonoBehaviour
 {
     public float  max_health = 100f;
     public float health = 0f;
@@ -19,12 +19,13 @@ public class Player_damage : MonoBehaviour
         
     }
 
-   public void takes_damage(float damage)
+    public void takes_damage(float damage)
     {
         health -= damage;
 
-        if (health <= 0) { 
-            Destroy(this, 0f); 
+        if (health <= 0)
+        {
+            Destroy(this, 0f);
         }
     }
 

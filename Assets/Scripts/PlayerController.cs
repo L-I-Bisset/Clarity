@@ -73,6 +73,9 @@ public class PlayerController : MonoBehaviour
         //Instantiate grenade
         GameObject grenade = Instantiate(grenadePrefab, throwPoint.position, throwPoint.rotation);
         Rigidbody grenadeRb = grenade.GetComponent<Rigidbody>();
+        grenadeRb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        grenadeRb.interpolation = RigidbodyInterpolation.Interpolate;
+
         //Calculate direction to throw
 
         Vector3 forceDirection = cam.transform.forward * ThrowForce + transform.up * UpwardsThrowForce;
