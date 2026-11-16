@@ -6,7 +6,8 @@ public class enemy_Health : MonoBehaviour
     public float maxHealth = 10f;
     //references the swingsword script from the swords object to check if sword is swinging
     public SwingSword swingSwordScript;
-    
+    public gameOverScreen gameOver;
+
     public void Start()
     {
         health = maxHealth;
@@ -43,11 +44,11 @@ public class enemy_Health : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (gameObject.name == "Boss")
+        if (gameObject.tag == "boss")
         {
-           gameOverScreen gameOverScreen = GameObject.Find("gameOverScreen").GetComponent<gameOverScreen>();
+           
 
-           gameOverScreen.activate();
+            gameOver.activate();
         }
 
     }

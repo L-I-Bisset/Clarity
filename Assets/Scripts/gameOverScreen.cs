@@ -4,20 +4,19 @@ using UnityEngine.SceneManagement;
 
 public class gameOverScreen : MonoBehaviour
 {
-    public void Awake()
+
+    public void activate()
     {
-        gameObject.SetActive(false);
+       gameObject.SetActive(true);
+       Debug.Log("ran");
     }
 
 
-    public void activate()
-  {
-    gameObject.SetActive(true);
-  }
   public void restart()
   {
     SceneManager.LoadScene("Main Game");
   }
+
 
   public void quit()
   {
