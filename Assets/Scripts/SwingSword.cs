@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SwingSword : MonoBehaviour
 {
-    private bool isSwinging = false;
+    public bool isSwinging = false;
     private float swingDuration = 0.2f; 
     public Transform holdPosition;
 

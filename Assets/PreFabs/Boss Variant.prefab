@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_Speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 2379360702990053710, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3901583541650823179, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
       propertyPath: damage
       value: 10
@@ -136,3 +140,5 @@ MonoBehaviour:
   spawned: {fileID: 8101995568573279915, guid: 7a8c2f69a2257234cb633acbf0ace6de, type: 3}
   spawn_radius: 100
   spawn_timer: 3
+  invunerability_radius: 20
+  invunerable: 0

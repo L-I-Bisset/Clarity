@@ -34,6 +34,7 @@ public class enemy_ai : MonoBehaviour
     //states
     public float sight_range, attack_range;
     public bool in_sight, in_attack;
+    public Player_health player_Health;
 
     private void Awake()
     {
@@ -41,6 +42,7 @@ public class enemy_ai : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         rigid = GetComponent<Rigidbody>();
+        already_attacked = false;
 
     }
 
@@ -59,8 +61,7 @@ public class enemy_ai : MonoBehaviour
 
         if (in_sight && in_attack){ 
             attacking(); 
-        }
-        
+        }        
     }
 
     private void searching()
@@ -109,13 +110,14 @@ public class enemy_ai : MonoBehaviour
 
         transform.LookAt(player);
 
-        Player_health playerHealth = player.GetComponent<Player_health>();
+        //access player health from player object
+        player_Health = GameObject.Find("Player").GetComponent<Player_health>();
 
-        if (playerHealth != null)
+        if (player_Health.health >= 0)
         {
             if (!already_attacked)
             {
-                playerHealth.takes_damage(damage);
+                player_Health.takes_damage(damage);
             }
         }   
 

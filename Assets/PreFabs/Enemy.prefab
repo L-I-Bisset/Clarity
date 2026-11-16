@@ -4900,7 +4900,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &4318434240434423933
 CapsuleCollider:
@@ -5031,7 +5031,7 @@ MonoBehaviour:
   walk_point_range: 3
   time_between_attacks: 0.5
   sight_range: 200
-  attack_range: 3
+  attack_range: 6
   in_sight: 0
   in_attack: 0
 --- !u!114 &-6132412763688259150
@@ -5047,3 +5047,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy_Damage
   health: 10
+  maxHealth: 10
+  swingSwordScript: {fileID: 0}
