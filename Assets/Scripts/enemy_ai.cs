@@ -19,9 +19,6 @@ public class enemy_ai : MonoBehaviour
 
     public float damage = 1f;
 
-
-
-
     //searching
     public Vector3 walk_point;
     bool walk_point_set;
@@ -108,7 +105,9 @@ public class enemy_ai : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
+        //Look at player before attacking.
         transform.LookAt(player);
+    
 
         //access player health from player object
         player_Health = GameObject.Find("Player").GetComponent<Player_health>();
