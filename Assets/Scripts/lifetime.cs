@@ -4,10 +4,15 @@ public class lifetime : MonoBehaviour
 {
     public float lifetime_duration = 1f; 
 
-    void Start()
+    void Update()
     {
-        Invoke(nameof(Destroy), lifetime_duration);
+        lifetime_duration -= Time.deltaTime;
+        if (lifetime_duration <= 0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
-   
+
 }
+    
