@@ -5030,7 +5030,7 @@ MonoBehaviour:
   walk_point: {x: 0, y: 0, z: 0}
   walk_point_range: 3
   time_between_attacks: 0.5
-  sight_range: 5
+  sight_range: 20
   attack_range: 3
   in_sight: 0
   in_attack: 0
@@ -5047,4 +5047,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enemy_Damage
   health: 10
-  damage: 1
