@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Swords
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 55515ca5f6fff1542b29908e08265603, type: 3}
+      propertyPath: m_TagString
+      value: weapon
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -75,6 +79,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 55515ca5f6fff1542b29908e08265603, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7483009706489628815}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 55515ca5f6fff1542b29908e08265603, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3017215762458324405}
   m_SourcePrefab: {fileID: 100100000, guid: 55515ca5f6fff1542b29908e08265603, type: 3}
 --- !u!1 &2638028741333760715 stripped
 GameObject:
@@ -94,3 +101,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwingSword
   holdPosition: {fileID: 0}
+--- !u!114 &3017215762458324405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2638028741333760715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967e7c8289cdafc46966882cff110703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DealingDamage
+  damage: 2

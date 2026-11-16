@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     float verticalInput;
     Vector3 moveDirection;
     Rigidbody rb;
+  
 
     [Header("Grenade Settings")]
     public GameObject grenadePrefab;
@@ -42,6 +43,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+
+
         rb.freezeRotation = true;
         readyToJump = true;
     }
