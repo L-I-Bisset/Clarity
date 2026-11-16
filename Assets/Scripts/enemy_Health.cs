@@ -2,8 +2,14 @@ using UnityEngine;
 
 public class enemy_Health : MonoBehaviour
 {
-    public float health = 10f;
-    
+    public float health;
+    public float maxHealth = 10f;
+
+    public void Start()
+    {
+        health = maxHealth;
+    }
+
 
     public void OnCollisionEnter(Collision collision)
     {
@@ -19,6 +25,7 @@ public class enemy_Health : MonoBehaviour
         }
     }
 
+    
     public void takes_damage(float damage)
     {
         health -= damage;
@@ -27,6 +34,14 @@ public class enemy_Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (gameObject.name == "Boss")
+        {
+           gameOverScreen gameOverScreen = GameObject.Find("gameOverScreen").GetComponent<gameOverScreen>();
+
+           gameOverScreen.activate();
+        }
+
     }
 
 
