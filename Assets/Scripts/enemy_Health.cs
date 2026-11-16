@@ -27,6 +27,12 @@ public class enemy_Health : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (gameObject.name == "Boss")
+        {
+            GameObject.Find("game over screen").GetComponent<gameOverScreen>().setup();
+        }
+
     }
 
 
