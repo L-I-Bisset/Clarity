@@ -10,6 +10,11 @@ public class Spawning : MonoBehaviour
 
     private float timer;
 
+    [Header("Invulnerability")]
+    public float invunerability_radius = 20f;
+    public bool invunerable = false;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -30,12 +35,24 @@ public class Spawning : MonoBehaviour
         
         }
 
+        //invun code
+        Collider[] colliders = Physics.OverlapSphere(transform.position, invunerability_radius);
+
+        foreach (Collider nearbyObject in colliders)
+        {
+            if (nearbyObject.CompareTag("Enemy"))
+            {
+                invunerable = true;
+                return;
+
+            }
+        }
     }
 
     void spawn()
     {
         Vector3 randomDirection = Random.insideUnitSphere * spawn_radius;
-        randomDirection.y = 0; 
+        randomDirection.y = 3; 
         Vector3 spawnPosition = transform.position + randomDirection;
 
         Instantiate(spawned, spawnPosition, Quaternion.identity);
