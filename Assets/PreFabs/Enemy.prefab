@@ -5034,6 +5034,7 @@ MonoBehaviour:
   attack_range: 6
   in_sight: 0
   in_attack: 0
+  player_Health: {fileID: 0}
 --- !u!114 &-6132412763688259150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5048,4 +5049,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::enemy_Damage
   health: 10
   maxHealth: 10
-  swingSwordScript: {fileID: 0}
+  swingSwordScript: {fileID: 7483009706489628815, guid: d90a2b94082619bc6a15f006afdac0d9, type: 3}
+  gameOver: {fileID: 0}
