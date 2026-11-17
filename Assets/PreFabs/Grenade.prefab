@@ -155,5 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   delay: 1.5
   explosionEffect: {fileID: 6960894789124445299, guid: bebc9607a3deac14588e59bd31eb91c6, type: 3}
-  explosionradius: 15
-  damage: 25
+  explosionradius: 10
+  damage: 15
