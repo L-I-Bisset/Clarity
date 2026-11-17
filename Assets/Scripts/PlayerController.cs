@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        //makes rididbody check constantly so chances of clipping through objects between frames is much less
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
 
@@ -66,6 +68,7 @@ public class PlayerController : MonoBehaviour
                 rb.linearDamping = 0; 
         }
 
+        //check if player wants to throw grenade
         if(Input.GetKeyDown(throwKey) && readyToThrow)
         {
             ThrowGrenade();
@@ -132,9 +135,11 @@ public class PlayerController : MonoBehaviour
             if (rb.linearVelocity.y > 0)
                 rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
+
         //Ground movement
         if (grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+
         //Air movement
         else if (!grounded)
             rb.AddForce(moveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);

@@ -10,6 +10,7 @@ public class enemy_Health : MonoBehaviour
 
     public void Start()
     {
+        //settinghealth and finding sword
         health = maxHealth;
         swingSwordScript = GameObject.Find("Swords").GetComponent<SwingSword>();
         
@@ -23,14 +24,10 @@ public class enemy_Health : MonoBehaviour
             // Check if the sword is swinging before applying damage
             if (swingSwordScript.isSwinging)
             {
+                //deal damage from object
                 health -= collision.gameObject.GetComponent<DealingDamage>().damage;
             }
-            
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-
+          
         }
     }
 
@@ -39,15 +36,15 @@ public class enemy_Health : MonoBehaviour
     {
         health -= damage;
 
+        //if healths low destorys object
         if (health <= 0)
         {
             Destroy(gameObject);
         }
 
+        //if boss dies activate game over screen
         if (gameObject.tag == "boss")
         {
-           
-
             gameOver.activate();
         }
 

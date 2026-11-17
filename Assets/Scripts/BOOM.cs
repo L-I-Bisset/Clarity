@@ -10,18 +10,22 @@ public class BOOM : MonoBehaviour
     public float explosionradius = 5f;
     public float damage = 25f;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //start countdown
         countdown = delay;
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
+        //lower countdown
         countdown -= Time.deltaTime;
+
+        //countdown ends and it hasnt exploded yet
         if (countdown <= 0f && !hasExploded)
         {
+            //BOOM makes explosion effect
             Explode();
             hasExploded = true;
         }
@@ -36,6 +40,7 @@ public class BOOM : MonoBehaviour
         
         Collider[] colliders = Physics.OverlapSphere(transform.position, explosionradius);
 
+        //deal damage to enemies
         foreach (Collider nearbyObject in colliders)
         {
             enemy_Health explosion = nearbyObject.GetComponent<enemy_Health>();
@@ -45,7 +50,8 @@ public class BOOM : MonoBehaviour
                 explosion.takes_damage(damage);
             }
         }
-            
+        
+        //makes grenade die
         Destroy(gameObject);
     }
 }
