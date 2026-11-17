@@ -39,9 +39,11 @@ public class PlayerController : MonoBehaviour
     public Transform throwPoint;
     bool readyToThrow = true;
 
+    public GrenadeCooldown grenadeCooldown;
 
     private void Start()
     {
+        //sets up rigid body
         rb = GetComponent<Rigidbody>();
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic;
         rb.interpolation = RigidbodyInterpolation.Interpolate;
@@ -58,7 +60,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         speedControl();
 
-        //Handle drag
+        //Handle drag on ground and air
         if (grounded) {
             rb.linearDamping = groundDrag;
         }
@@ -66,13 +68,14 @@ public class PlayerController : MonoBehaviour
                 rb.linearDamping = 0; 
         }
 
+        //checks if player is throwing a grenade
         if(Input.GetKeyDown(throwKey) && readyToThrow)
         {
             ThrowGrenade();
         }
     }
 
-    private void ThrowGrenade()
+    public void ThrowGrenade()
     {
         readyToThrow = false;
         //Instantiate grenade
@@ -87,6 +90,8 @@ public class PlayerController : MonoBehaviour
       
         grenadeRb.AddForce(forceDirection, ForceMode.Impulse);
 
+        //sets sets the cooldown time in the UI script to the cooldown 
+        grenadeCooldown.cooldownTimer = Cooldown;
         //Cooldown
         Invoke(nameof(ResetThrow), Cooldown);
     }
@@ -98,15 +103,18 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //runs the movement script
         MovePlayer();
     }
 
     //Handles player input
     private void MyInput()
     {
+        //gets playes forward and sideways movement
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
 
+        //checks if player wants to jump
         if (Input.GetButtonDown("Jump") && readyToJump && grounded)
         {
             readyToJump = false;
