@@ -38,6 +38,8 @@ public class enemy_ai : MonoBehaviour
     {
         //sets player, makes agent and gets rigidbody 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        player_Health = player.GetComponent<Player_health>();
+
         agent = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
 
