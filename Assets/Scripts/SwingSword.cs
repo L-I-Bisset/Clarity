@@ -17,6 +17,7 @@ public class SwingSword : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, holdPosition.rotation * Quaternion.Euler(-90, -32, 0), Time.deltaTime * 12);
             transform.position = holdPosition.position + new Vector3(0, 0.25f, 0);
         }
+        //makes the sword swing
         if (Input.GetButtonDown("Fire1") && !isSwinging)
         {
             swingSword();
@@ -27,6 +28,7 @@ public class SwingSword : MonoBehaviour
     {
         if (!isSwinging)
         {
+            //starts a coroutine so that the sword cant double swing
             isSwinging = true;
             StartCoroutine(SwingCoroutine());
         }
@@ -40,6 +42,7 @@ public class SwingSword : MonoBehaviour
         {
             //Keep sword on the player during the swing animation
             transform.position = holdPosition.position + new Vector3(0, 0.25f, 0);
+            //Rotates the sword by a fraction of the entire swing using the swing duration so its smooth
             transform.Rotate(0, 0, -140 * Time.deltaTime / swingDuration);
             elapsedTime += Time.deltaTime;
             yield return null;
