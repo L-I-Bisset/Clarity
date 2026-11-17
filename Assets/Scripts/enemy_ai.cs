@@ -36,6 +36,8 @@ public class enemy_ai : MonoBehaviour
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        player_Health = player.GetComponent<Player_health>();
+
         agent = GetComponent<NavMeshAgent>();
 
         rigid = GetComponent<Rigidbody>();
